@@ -1,52 +1,85 @@
 #!/usr/bin/python3
+"""
+contains class Square which implements Rectangle.
+"""
+
 from models.rectangle import Rectangle
-"""A Module for a Class Rectangle"""
 
 
 class Square(Rectangle):
-    """Representation of a square."""
+    """
+    class Square which implements rectangle
+    """
 
     def __init__(self, size, x=0, y=0, id=None):
-        """The initialization of square attributes inherited fromrectangle.
-    Args:
-        size (int): The size of the new Square.
-        x (int): The x coordinate of the new Square.
-        y (int): The y coordinate of the new Square.
-        id (int): The identity of the new Square.
+        """
+        Initializes the instance of the class
+        Args:
+            size: size of the square
+            x: x coordinate of the square
+            y: y coordinate of the square
+            id: id of the square
         """
         super().__init__(size, size, x, y, id)
 
     @property
     def size(self):
-        """Validating the values passed into the size variable"""
+        """
+        getter for size
+        """
         return self.width
 
     @size.setter
     def size(self, value):
-        """Setting the value of a square"""
+        """
+        setter for size
+        """
+        if type(value) != int:
+            raise TypeError("width must be an integer")
+        if value <= 0:
+            raise ValueError("width must be > 0")
+
         self.width = value
         self.height = value
 
     def __str__(self):
-        """Returns the print() representation and __str__ represntation of square"""
-        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y, self.size)
+        """
+        returns string representation of the square
+        """
+        return "[Square] ({}) {}/{} - {}".format(self.id,
+                                                 self.x, self.y, self.size)
 
     def update(self, *args, **kwargs):
-        """This module updates keyword args and non-keyword arguements"""
+        """
+        assign an argument to each attribute
+        """
         if args:
-            self.id = args[0]
-            if len(args) > 1:
-                self.width = args[1]
-            if len(args) > 2:
-                self.height = args[2]
-            if len(args) > 3:
-                self.x = args[3]
-            if len(args) > 4:
-                self.y = args[4]
+            for i, arg in enumerate(args):
+                if i == 0:
+                    self.id = arg
+                if i == 1:
+                    self.size = arg
+                if i == 2:
+                    self.x = arg
+                if i == 3:
+                    self.y = arg
         else:
             for key, value in kwargs.items():
-                setattr(self, key, value)
+                if key == "id":
+                    self.id = value
+                if key == "size":
+                    self.size = value
+                if key == "x":
+                    self.x = value
+                if key == "y":
+                    self.y = value
 
     def to_dictionary(self):
-        """This returns a dictionary representation of the class Square"""
-        return {'x': self.x, 'y': self.y, 'id': self.id, 'height': self.height, 'width':self.width}
+        """
+        returns dictionary representation of the square
+        """
+        return {"id": self.id,
+                "x": self.x,
+                "size": self.size,
+                "y": self.y
+                }
