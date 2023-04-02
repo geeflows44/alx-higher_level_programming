@@ -1,14 +1,13 @@
-#! /usr/bin/python3
-""" Python script that uses the urllib package to
-- retrieve data from https://alx-intranet.hbtn.io/status
-"""
+#!/usr/bin/python3
+"""A python script that fetches https://alx-intranet.hbtn.io/status"""
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     import urllib.request
-
-    with urllib.request.urlopen('https://alx-intranet.hbtn.io/status') as page:
-        response = page.read()
-        print("Body response:")
-        print(f"\t- type: {type(response)}")
-        print(f"\t- content: {response}")
-        print(f"\t- utf8 content: {response.decode('utf-8')}")
+    url = 'https://alx-intranet.hbtn.io/status'
+    with urllib.request.urlopen(url) as response:
+        body = response.read()
+        print('Body response:')
+        print('\t- type: {}'.format(type(body)))
+        print('\t- content: {}'.format(body))
+        print('\t- utf8 content: {}'.format(body.decode('utf-8')))
